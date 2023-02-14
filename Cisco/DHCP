@@ -1,0 +1,11 @@
+ip dhcp excluded-address '.$ip_N.'.1 '.$ip_N.'.'.$dhcp_begin.'<br/>
+            ip dhcp excluded-address '.$ip_N.'.'.$dhcp_end.' '.$ip_N.'.254<br/><br/>
+            ip dhcp pool 0 <br/>
+            network '.$ip_N.'.0 '.$netmask_slash[$mask_c] .'<br/>
+            dns-server 141.0.202.202 141.0.202.203<br/>
+            default-router '. $mask_format[0].'<br/><br/>
+            interface Vlan1<br/>
+            ip address '. $mask_format[0].' '.$netmask_slash[$mask_c].'<br/><br/>
+            
+            access-list 110 remark NAT<br/>
+            access-list 110 permit ip '.$ip_N.'.0 '.$wildcard_slash[$mask_c].' any<br/><br/><br/>
