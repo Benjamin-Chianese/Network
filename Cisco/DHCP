@@ -1,11 +1,20 @@
-ip dhcp excluded-address '.$ip_N.'.1 '.$ip_N.'.'.$dhcp_begin.'<br/>
-            ip dhcp excluded-address '.$ip_N.'.'.$dhcp_end.' '.$ip_N.'.254<br/><br/>
-            ip dhcp pool 0 <br/>
-            network '.$ip_N.'.0 '.$netmask_slash[$mask_c] .'<br/>
-            dns-server 141.0.202.202 141.0.202.203<br/>
-            default-router '. $mask_format[0].'<br/><br/>
-            interface Vlan1<br/>
-            ip address '. $mask_format[0].' '.$netmask_slash[$mask_c].'<br/><br/>
-            
-            access-list 110 remark NAT<br/>
-            access-list 110 permit ip '.$ip_N.'.0 '.$wildcard_slash[$mask_c].' any<br/><br/><br/>
+Variables :
+
+#IP_NETWORK# : IP network (ex : 192.168.1.0)
+#IP_FIRST_POOL# : First IP of the pool (ex : 192.168.1.1)
+#IP_LAST_POOL# : Last IP of the pool (ex : 192.168.1.254)
+#IP_BEGIN_DHCP# : First DHCP IP address -1 (ex : 192.168.1.49)
+#IP_END_DHCP# : Last DHCP IP address +1 (ex : 192.168.1.201)
+#IP_GATEWAY# : LAN IP of the Gateway router (ex : 192.168.1.254)
+#IP_MASK# : Network mask (ex : 255.255.255.0)
+#IP_DNS# : IP dns selected  (ex : 8.8.8.8 8.8.8.4)
+
+
+            ip dhcp excluded-address #IP_FIRST_POOL# #IP_BEGIN_DHCP#
+            ip dhcp excluded-address #IP_END_DHCP# #IP_LAST_POOL#
+            !
+            ip dhcp pool 0 
+            network #IP_NETWORK# #IP_MASK#
+            dns-server #IP_DNS#
+            default-router #IP_GATEWAY#
+           
